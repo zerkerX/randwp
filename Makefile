@@ -131,9 +131,10 @@ COBJECTS= cjpeg.$(O) rdppm.$(O) rdgif.$(O) rdtarga.$(O) rdrle.$(O) \
 DOBJECTS= djpeg.$(O) wrppm.$(O) wrgif.$(O) wrtarga.$(O) wrrle.$(O) \
         wrbmp.$(O) rdcolmap.$(O) cdjpeg.$(O)
 TROBJECTS= jpegtran.$(O) rdswitch.$(O) cdjpeg.$(O) transupp.$(O)
+RANDOBJS= randwp.$(O) wrbmp.$(O)
 
 
-all:  libjpeg.$(A) cjpeg djpeg jpegtran rdjpgcom wrjpgcom
+all:  libjpeg.$(A) randwp
 
 # Special compilation rules to support ansi2knr and libtool.
 .SUFFIXES: .lo .la
@@ -187,6 +188,10 @@ rdjpgcom: rdjpgcom.$(O)
 
 wrjpgcom: wrjpgcom.$(O)
 	$(LN) $(LDFLAGS) -o wrjpgcom wrjpgcom.$(O) $(LDLIBS)
+
+# Random Wallpaper tool
+randwp: randwp.$(O)
+	$(LN) $(LDFLAGS) -o randwp $(RANDOBJS) libjpeg.$(A) $(LDLIBS)
 
 # Installation rules:
 
@@ -317,3 +322,6 @@ rdbmp.$(O): rdbmp.c cdjpeg.h jinclude.h jconfig.h jpeglib.h jmorecfg.h jerror.h 
 wrbmp.$(O): wrbmp.c cdjpeg.h jinclude.h jconfig.h jpeglib.h jmorecfg.h jerror.h cderror.h
 rdrle.$(O): rdrle.c cdjpeg.h jinclude.h jconfig.h jpeglib.h jmorecfg.h jerror.h cderror.h
 wrrle.$(O): wrrle.c cdjpeg.h jinclude.h jconfig.h jpeglib.h jmorecfg.h jerror.h cderror.h
+
+# Random Wallpaper tool:
+randwp.$(O): randwp.c
