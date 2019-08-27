@@ -36,12 +36,15 @@ int convert_jpeg(const char * inname, const char * outname)
 
     jpeg_stdio_src(&cinfo, infile);
     (void) jpeg_read_header(&cinfo, TRUE);
-    (void) jpeg_start_decompress(&cinfo);
 
     /* Configure destination object */
     dest_mgr = jinit_write_bmp(&cinfo, FALSE);
+    printf("Initted BMP\n");
     dest_mgr->output_file = outfile;
     (*dest_mgr->start_output) (&cinfo, dest_mgr);
+    printf("Configured Output\n");
+    (void) jpeg_start_decompress(&cinfo);
+    printf("Started decompress\n");
 
     /* Write data to the destination */
     while (cinfo.output_scanline < cinfo.output_height)
@@ -50,20 +53,31 @@ int convert_jpeg(const char * inname, const char * outname)
                         dest_mgr->buffer_height);
         (*dest_mgr->put_pixel_rows) (&cinfo, dest_mgr, num_scanlines);
     }
+    printf("Wrote output\n");
 
     /* Cleanup */
     (*dest_mgr->finish_output) (&cinfo, dest_mgr);
+    printf("Finished...\n");
     (void) jpeg_finish_decompress(&cinfo);
+    printf("Finished Decomp\n");
     jpeg_destroy_decompress(&cinfo);
+    printf("Destroyed\n");
     fclose(infile);
 }
 
 
 
-int main()
+int main(int argc, char * argv[])
 {
-    const char * inname = "/home/zerker/Pictures/Backgrounds/4-3 Small/800x600/art_keeper_orland.jpg";
-    const char * outname = "/home/zerker/result.bmp";
-    printf("%s to %s\n", inname, outname);
-    convert_jpeg(inname, outname);
+    if (argc == 3)
+    {
+        char * inname = argv[1];
+        char * outname = argv[2];
+        printf("%d, %s to %s\n", argc, inname, outname);
+        convert_jpeg(inname, outname);
+    }
+    else
+    {
+        printf("Usage: randwp inname outname\n");
+    }
 }
