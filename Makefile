@@ -23,7 +23,7 @@ mandir = $(prefix)/man/man$(manext)
 CC= gcc
 
 # You may need to adjust these cc options:
-CFLAGS= -O2  -I$(srcdir)
+CFLAGS= -O2  -I$(srcdir) -g
 # Generally, we recommend defining any configuration symbols in jconfig.h,
 # NOT via -D switches here.
 # However, any special defines for ansi2knr.c may be included here:
@@ -190,7 +190,7 @@ wrjpgcom: wrjpgcom.$(O)
 	$(LN) $(LDFLAGS) -o wrjpgcom wrjpgcom.$(O) $(LDLIBS)
 
 # Random Wallpaper tool
-randwp: randwp.$(O)
+randwp: randwp.$(O) $(RANDOBJS) libjpeg.$(A)
 	$(LN) $(LDFLAGS) -o randwp $(RANDOBJS) libjpeg.$(A) $(LDLIBS)
 
 # Installation rules:
