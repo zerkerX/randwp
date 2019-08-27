@@ -1,29 +1,23 @@
-/* jconfig.h.  Generated automatically by configure.  */
-/* jconfig.cfg --- source file edited by configure script */
+/* jconfig.wat --- jconfig.h for Watcom C/C++ on MS-DOS or OS/2. */
 /* see jconfig.doc for explanations */
 
-#undef HAVE_PROTOTYPES
-#undef HAVE_UNSIGNED_CHAR
-#undef HAVE_UNSIGNED_SHORT
-#undef void
-#undef const
-#undef CHAR_IS_UNSIGNED
-#undef HAVE_STDDEF_H
-#undef HAVE_STDLIB_H
+#define HAVE_PROTOTYPES
+#define HAVE_UNSIGNED_CHAR
+#define HAVE_UNSIGNED_SHORT
+/* #define void char */
+/* #define const */
+#define CHAR_IS_UNSIGNED
+#define HAVE_STDDEF_H
+#define HAVE_STDLIB_H
 #undef NEED_BSD_STRINGS
 #undef NEED_SYS_TYPES_H
-#undef NEED_FAR_POINTERS
+#undef NEED_FAR_POINTERS	/* Watcom uses flat 32-bit addressing */
 #undef NEED_SHORT_EXTERNAL_NAMES
-/* Define this if you get warnings about undefined structures. */
 #undef INCOMPLETE_TYPES_BROKEN
 
 #ifdef JPEG_INTERNALS
 
 #undef RIGHT_SHIFT_IS_UNSIGNED
-#undef INLINE
-/* These are for configuring the JPEG memory manager. */
-#undef DEFAULT_MAX_MEM
-#undef NO_MKTEMP
 
 #endif /* JPEG_INTERNALS */
 
@@ -35,11 +29,10 @@
 #undef RLE_SUPPORTED		/* Utah RLE image file format */
 #define TARGA_SUPPORTED		/* Targa image file format */
 
-#undef TWO_FILE_COMMANDLINE
-#undef NEED_SIGNAL_CATCHER
+#undef TWO_FILE_COMMANDLINE	/* optional */
+#define USE_SETMODE		/* Needed to make one-file style work in Watcom */
+#undef NEED_SIGNAL_CATCHER	/* Define this if you use jmemname.c */
 #undef DONT_USE_B_MODE
-
-/* Define this if you want percent-done progress reports from cjpeg/djpeg. */
-#undef PROGRESS_REPORT
+#undef PROGRESS_REPORT		/* optional */
 
 #endif /* JPEG_CJPEG_DJPEG */
