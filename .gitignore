@@ -2,4 +2,8 @@ config.log
 config.status
 *.o
 libjpeg.a
+LIBJPEG.LIB
 randwp
+RANDWP.EXE
+*.OBJ
+*.ERR
