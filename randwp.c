@@ -3,7 +3,11 @@
 #include "cdjpeg.h"
 
 #include <sys/types.h>
-#include <dirent.h>
+#ifdef _DOS
+    #include <direct.h>
+#else
+    #include <dirent.h>
+#endif
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -36,7 +40,6 @@ int pick_file(const char * searchpath, char * selected_file)
     struct dirent * dir_item;
     size_t num_files = 0, choice;
     DIR * searchdir = opendir(searchpath);
-    char * selections = NULL;
     int result = 1;
     
     if (searchdir == NULL)
@@ -68,10 +71,10 @@ int pick_file(const char * searchpath, char * selected_file)
             {
                 /* Return full path and filename to the caller */
                 strcpy(selected_file, searchpath);
-            #ifdef __linux__
-                strcat(selected_file, "/");
-            #else
+            #ifdef _DOS
                 strcat(selected_file, "\\");
+            #else
+                strcat(selected_file, "/");
             #endif
                 strcat(selected_file, dir_item->d_name);
                 result = 0;
