@@ -7,7 +7,7 @@
 
 SYSTEM=DOS
 CC= wcl386
-CFLAGS= -4r -ort -wx -zq -bt=$(SYSTEM)
+CFLAGS= -4r -ort -wx -zq -bt=$(SYSTEM) -i=LIBJPEG
 
 # Caution: avoid -ol or -ox; these generate bad code with 10.0 or 10.0a.
 # Generally, we recommend defining any configuration symbols in jconfig.h,
@@ -23,7 +23,7 @@ LDFLAGS= -zq -l=nt
 !endif
 
 # Object files for Random wallpaper tool
-RANDOBJS= randwp.obj libjpeg\wrbmp.obj
+RANDOBJS= randwp.obj wrbmp.obj
 
 all: randwp.exe
 
@@ -39,4 +39,4 @@ clean: .SYMBOLIC
 	- del randwp.exe
 
 randwp.obj: randwp.c
-libjpeg\wrbmp.obj: libjpeg\wrbmp.c
+wrbmp.obj: wrbmp.c
