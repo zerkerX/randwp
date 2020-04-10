@@ -1,3 +1,17 @@
+/*
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
 #include <stdio.h>
 #include "jpeglib.h"
 #include "cdjpeg.h"
@@ -16,6 +30,11 @@
 /* Pull in bmp write routines that aren't normally in headers */
 EXTERN(djpeg_dest_ptr) jinit_write_bmp(j_decompress_ptr cinfo, boolean is_os2);
 
+/* Test if the specified filename is a JPEG file by confirming its name
+ * Returns logical true if supported, logical false otherwise
+ * 
+ * filename - The name of the file to check 
+ */
 int is_supported(const char * filename)
 {
     size_t len = strlen(filename);
@@ -34,7 +53,10 @@ int is_supported(const char * filename)
     );
 }
 
-/* Return 0 on success, 1 on failure */
+/* Return 0 on success, 1 on failure
+ * searchpath - Path to search for files
+ * selected_file - The file selected from the provided path
+ *  */
 int pick_file(const char * searchpath, char * selected_file)
 {
     struct dirent * dir_item;
@@ -89,6 +111,10 @@ int pick_file(const char * searchpath, char * selected_file)
     return result;
 }
 
+/* Converts specified JPEG file to BMP format
+ * inname - input JPEG filename
+ * outname - output BMP filename
+ */
 void convert_jpeg(const char * inname, const char * outname)
 {
     struct jpeg_decompress_struct cinfo;
